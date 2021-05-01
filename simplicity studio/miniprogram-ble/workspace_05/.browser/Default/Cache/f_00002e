@@ -1,0 +1,161 @@
+<!-- Author: Balázs Leidecker-->
+
+# UG118: Blue Gecko Bluetooth®ProfileToolkit Developer's Guide
+
+Bluetooth GATT services and characteristics are the basis of the Bluetooth data exchange. They are used to describe the structure, access type, and security properties of the data exposed by a device, such as a heart rate monitor. Bluetooth services and characteristics have a well defined and structured format, and they can be easily described using XML markup language. The Profile Toolkit is an XML-based markup language for describing the Bluetooth services and characteristics, also known as the GATT database, in both easy human-readable and machine-readable formats. This guide walks you through the XML syntax used in the Profile Toolkit and instructs you how to easily describe your own Bluetooth services and characteristics,configure the access and security properties, and how to include the GATT database as a part of the firmware. This guide also contains practical examples showing the use of both standardized Blue-tooth and vendor-specific proprietary services. These examples provide a good starting point for your own development work
+
+Key points:
+* Understanding Bluetooth GATT profiles, services, characteristics, attribute protocol
+* Building the GATT database with the Profile Toolkit
+
+![](images/1.png)
+
+## 1.  Understanding Profiles, Services, Characteristics and the Attribute Protocol
+
+This section gives a basic explanation of Bluetooth profiles, services and characteristics, and also explains how the Attribute protocol is used in the data exchange between the GATT server and client. Links to further information regarding these subjects are also provided.
+
+### 1.1 GATT-Based Bluetooth Profiles and Services
+
+A Bluetooth profile specifies the structure in which data is exchanged. The profile defines elements, such as services and characteristics used in a profile, but it may also contain definitions for security and connection establishment parameters. Typically a profile consists of one or more services which are needed to accomplish a high-level use case, such as heart rate or cadence monitoring. Standardized profiles allow device and software vendors to build interoperable devices and applications. Bluetooth SIG standardized profiles are available at: [https://developer.bluetooth.org/gatt/profiles/Pages/ProfilesHome.aspx](https://developer.bluetooth.org/gatt/profiles/Pages/ProfilesHome.aspx).
+
+### 1.2 Services
+
+A service is a collection of data composed of one or more characteristics used to accomplish a specific function of a device, such as battery monitoring or temperature data, rather than a complete use case. Bluetooth SIG standardized service specifications are available at: [https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx](https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx).
+
+### 1.3 Characteristics
+
+A characteristic is a value used in a service, either to expose and/or exchange data and/or to control information. Characteristics have a well defined, known format. They also contain information about how the value can be accessed, what security requirements must be fulfilled, and, optionally, how the characteristic value is displayed or interpreted. Characteristics may also contain descriptors that describe the value or permit configuration of characteristic data indications or notifications. Bluetooth SIG standardized characteristics are available at: [https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicsHome.aspx](https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicsHome.aspx).
+
+### 1.4 The Attribute Protocol
+
+The Attribute protocol enables data exchange between the GATT server and the GATT client. The protocol also provides a set of operations, namely how to query, write, indicate or notify the data and/or control information between the two GATT parties.
+
+![](images/AP.png)
+
+![](images/attr_ops.png)
+
+## 2. Contents of the GATT Database
+
+This section of the document describes the XML syntax used in the Blue Gecko Bluetooth Profile Toolkit and walks you through the different options you can use when building Bluetooth services and characteristics. A few practical GATT database examples are also shown.
+
+### 2.1 General Limitations
+
+The table below shows the limitations of the GATT database supported by the Blue Gecko devices:
+
+| Item                                                    |                          Limitation                          | Notes                                                        |
+| ------------------------------------------------------- | :----------------------------------------------------------: | :----------------------------------------------------------- |
+| Maximum number of characteristics                       | Not limited; practically restricted by the overall number of attributes in the database | All characteristics which do NOT have the property **const="true"** are included in this count. |
+| Maximum length of a **type="user"** characteristic      |                          255 bytes                           | These characteristics are handled by the application, which means that the amount of RAM available for the application will limit this. Note: GATT procedures **Write Long Characteristic Values, Reliable Writes** and **Read Multiple Characteristic Values** are not supported for these characteristics |
+| Maximum length of a **type="utf-8/hex"** characteristic |                          255 bytes                           | If **const="true"** then the amount of free flash on the device defines this limit.<br> If **const="false"** then RAM will be allocated for the characteristic for storing its value. The amount of free flash available on the device used defines this. |
+| Maximum number of attributes in a single GATT database  |                             255                              | A single characteristic typically uses 3-5 attributes.       |
+| Maximum number of notifiable characteristics            |                              64                              |                                                              |
+| Maximum number of capabilities                          |                              16                              | The logic state of the capabilities will determine the visibility of each service/characteristic. |
+
+### 2.2 GATT database{#profile}
+
+The GATT database along with the services and characteristics must be described inside the XML attribute **< gatt >**
+
+| Parameter | Description |
+|:------------:|:------------|
+|name|Free text, not used by the database compiler<br>**Value**: Any UTF-8 string <br>**Default**: Custom BLE GATT | 
+|Generic Attribute Service|If enabled, Generic Attribute service and its service_changed characteristic will be added in the beginning of the database. The Bluetooth stack takes care of database structure change detection and will send service_changed notifications to clients when a change is detected. In addition, this will enable the GATT-caching feature introduced in Bluetooth 5.1. <br>**Values**: <br>**enabled**: Generic Attribute service is automatically added to the GATT database, and GATT caching is enabled.<br>**disabled**: Generic Attribute service is not automatically added to the GATT database, and GATT caching is disabled.<br>**Default**: enabled  |
+|GATT Caching|The GATT caching feature can be enabled/disabled|
+
+
+
+### 2.3 Capability declarations{#capability_declarations}
+
+The GATT database services and characteristics can be made visible/invisible by using **capabilities**. All capabilities in a GATT database must be first declared in the "Capability declarations" table. 
+
+With the + button, you can add capabilities to the GATT configuration. The Name you set here for the capability will also be the identifier name for that capability in the generated database C header. Thus, it must be valid in C.
+The capabilites can be enabled/disabled with the checkbox nex to its name.
+
+
+#### 2.3.1 Capabilities
+
+Each capability must be declared individually for services and characteristics
+
+In summary each service/characteristic can declare a number of capabilities, and the state of the capabilities (enable/disable) determines the visibility of those services/characteristics as a bit-wise OR operation, e.g. the service/characteristic is visible when at least one of its capabilities is enabled and it’s not visible when all of its the capabilities are disabled.
+
+**Note**: Changing the capabilities state should not be done during a connection as that can cause misbehavior. The safest way is to change the capabilities when no devices are connected.
+
+**Inheritance of Capabilities**
+Services and characteristics can declare the capabilities they want to use. If no capabilities are declared, then the following inheritance rules apply:
+1. A service that does not declare any capabilities will have all the capabilities from the GATT configration.
+2. A characteristic that does not declare any capabilities will have all the capabilities from the service that it belongs to. If the service
+declares a subset of the capabilities inthe GATT configuration, then only that subset will be inherited by the characteristic.
+3. All attributes of a characteristic inherit the characteristic's capabilities.
+
+**Visibility**
+
+Capabilities can be added to services and characteristics to make it visible/invisible to a GATT client, according with the following logic:
+1. A service and all its characteristics are **visible**, when at least one of its capabilities is **enabled**.
+2. A service and all its characteristics are **invisible**, when all of its capabilities are **disabled**.
+3. A characteristic and all its attributes are **visible**, when at least one of its capabilities is **enabled**.
+4. A characteristic and all its attributes are **invisible**, when all of its capabilities are **disabled**.
+
+The needed capabilites can be selected from the dropdown list. This list contains all the capabilites declared in the GATT configurator section.
+
+### 2.4 Services{#services}
+
+The table below describes the parameters that can be used for defining a GATT service.
+
+|Parameter     | Description|
+|--------------|:----------|
+| Name | The name of the service  |
+| UUID  | Universally Unique Identifier. The UUID uniquely identifies a service. 16-bit values are used for the services defined by the Bluetooth SIG and 128-bit UUIDs can be used for vendor specific implementations.<br> **Range:**<br> **0x0000 - 0xFFFF**: Reserved for Bluetooth SIG standardized services<br> **0x00000000-0000-0000-0000-000000000000 - 0xFFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF**: Reserved for vendor specific services  |
+|Info|This field can be used to provide information about the service for the user of the configurator, it won't be used in the code. |
+|ID | The ID is used to identify a service within the service database and can be used as a reference from other services (include statement). Typically this does not need to be used. Value can only be porvided here, if the checkbox is checked. <br> **Value**: Any UTF-8 string   |
+|SIG type|SIG type of the Service, if applicable |
+|Declaration type|   The type field defines whether the service is a primary or a secondary service. Typically this does not need to be used<br> **Values**:<br> **primary**: a primary service<br> **secondary**: a secondary service<br> **Default**: primary |
+|Advertise service |This slider defines if the service UUID is included in the advertisement data. <br>The advertisement data can contain up to 13 16-bit UUIDs or one (1) 128-bit UUID <br> **Values**: <br>**enabled**: UUID included in advertisement data<br> **disabled**: UUID not included in advertisement data <br> **Default**: disabled <br> **Note**: You can override the advertisement data with the GAP API, in which case this is not valid.  |
+|Service includes| Service dependecies can be selected from the available services defined in the same GATT configuration. Multiple values can be selected from the dropdown list. |
+|Service capabilites| Capabilites can be declared for the service. Multiple values can be selected from the dropdown list.    |
+
+
+Note: You can generate your own 128-bit UUIDs at: [http://www.itu.int/en/ITU-T/asn1/Pages/UUID/uuids.aspx](http://www.itu.int/en/ITU-T/asn1/Pages/UUID/uuids.aspx)
+ 
+
+### 2.5 Characteristics{#characteristics}
+
+The table below describes the parameters that can be used for defining a characteristic.
+
+|Parameter|  Description|
+|:---:|:------|
+|Name|Name of the characteristic, not used in the code |
+|UUID |Universally Unique Identifier. The UUID uniquely identifies a characteristic. 16-bit values are used for the services defined by the Bluetooth SIG and 128-bit UUIDs can be used for vendor specific implementations. <br>**Range**:<br>**0x0000 - 0xFFFF**: Reserved for Bluetooth SIG standardized services<br>**0x00000000-0000-0000-0000-000000000000 - 0xFFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF**: Reserved for vendor specific services |
+|Info|This field can be used to provide information about the characteristic for the user of the configurator, it won't be used in the code. |
+|ID |The ID is used to identify a characteristic. The ID is used within a C application to read and write characteristic values or to detect if notifications or indications are enabled or disabled for a specific characteristic. <br> When the project is built the generated GATT C header file contains a macro with the characteristic 'ID' and corresponding handle value. It must be valid in C. Only used when the checkbox is ticked<br>**Value**: Any UTF-8 string which is valid in C |
+|SIG type|SIG type of the characteristic, if applicable |
+|type|Defines the data type.<br>**Values**:<br>**hex**: Value type is hex<br>**utf-8**: Value is a string<br>**user**: When the characteristic type is marked as "user", the application is responsible for initializing the characteristic value and also providing it, for example, when read operation occurs. The Bluetooth stack does not initialize the value or automatically provide the value when it is being read. When this is set, the Bluetooth stack generates **gatt_server_user_read_request** or **gatt_server_user_write_request**, which must be handled by the application. <br>**Default**: utf-8|
+|Constant |Characteristic has a constant value, which cannot be modified after programming The benefit of constant values is that no RAM is allocated for them, leaving more RAM to the application.<br>Default: false|
+|Variable length|If set to true, then the length of the value has variable length |
+|Value length|	Defines the length of the characteristic, or the maximum length if Variable length is true. If both length and value are defined, then the following rules apply: 1. If variable_length is false and length is bigger than the value's length, then the value will be padded with 0's at the end to match the attribute's length. 2. If length is smaller than the value's length, then the value will be clipped to match length, regardless of whether variable_length is true or false. Range:<br>If type is 'hex' or 'utf-8': 0-255 <br>If type is 'user': 0-512 <br>Default: 1|
+|Initial value |Initial value of the characteristic|
+|Characteristic capabilites| Capabilites can be declared for the characteristic. Multiple values can be selected from the dropdown list.  |
+
+
+#### 2.5.1 Permission settings{#characteristic_permissions}
+
+The characteristics access properties are defined by the following table:
+
+|Permission Setting|  Description|
+|:---:|:------|
+|Read |Characteristic can be read by a remote device.<br>**Values**:<br>**true**: Characteristic can be read<br>**false**: Characteristic cannot be read<br>**Default**: false|
+|Write  |Characteristic can be written by a remote device<br>**Values**:<br>**true**: Characteristic can be written<br>**false**: Characteristic cannot be written<br>**Default**: false |
+|Reliable Write|Allows using reliable write procedure to modify attribute, this is just a hint to GATT client. The Bluetooth stack always allows using reliable writes to be used to modify attributes.<br>**Values**:<br>**true**: Reliable write enabled<br>**false**: Reliable write disabled<br>**Default**: false|
+|Write Without Response |Characteristic can be written by a remote device. Write without response is not acknowledged over the Attribute Protocol.<br>**Values**:<br>**true**: Characteristic can be written<br>**false**: Characteristic cannot be written<br>**Default**: false|
+|Notify |Characteristic has the notify property and characteristic value changes are notified over the Attribute Protocol. Notifications are not acknowledged over the Attribute Protocol<br>**Values**:<br>**true**: Characteristic has notify property<br>**false**: Characteristic does not have notify property<br>**Default**: false|
+|Indicate |Characteristic has the indicate property and characteristic value changes are indicated over the Attribute Protocol. Indications are acknowledged over the Attribute Protocol<br>**Values**:<br>**true**: Characteristic has indicate property<br>**false**: Characteristic does not have indicate property<br>**Default**: false|
+
+For all of the above mentioned accesses a securtiy level can also be defined:
+
+|Permission Setting|  Description|
+|:---:|:------|
+|Authenticated|Accessing the characteristic value requires an authentication. In order to access the characteristic with this property, the remote device has to be bonded using MITM protection and the connection must be also encrypted. |
+|Bonded| Accessing the characteristic value requires an encrypted link. Devices must also be bonded at least with Just Works pairing |
+|Encrypted|Accessing the characteristic value requires an encrypted link. With iOS 9.1 and newer devices must also be bonded at least with Just Works pairing.|
+
+#### 2.5.3 Descriptors{#descriptors}
+
+Characteristic descriptors can also be defined in the GATT configurator. For the available settings and fields, see the [Characteristics](#characteristics) chapter, as the descriptor settings are a subset of the characteritic ones.

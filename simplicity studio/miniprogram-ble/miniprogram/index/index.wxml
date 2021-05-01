@@ -1,0 +1,63 @@
+<wxs module="utils">
+module.exports.max = function(n1, n2) {
+  return Math.max(n1, n2)
+}
+module.exports.len = function(arr) {
+  arr = arr || []
+  return arr.length
+}
+</wxs>
+
+<view class="content">
+  <text>\n</text>
+  <view class="p2" bindtap="getBluetoothDevices">
+    <text style="margin-left:36px">可用设备</text>
+  </view>
+  <block wx:if="{{show_available_devices_switch === 0}}">
+    <block wx:for="{{devices}}">
+      <view>
+        <text style="margin-left:36px"  class="p3" id="{{item.deviceId}}" data-device-name="{{item.name}}" bindtap="connectTO">{{item.name}}</text>
+      </view>
+    </block>
+  </block>
+  <block wx:if="{{connected_device_switch === 0}}">
+    <view>
+      <text class="p3" style="margin-left:36px">{{device_name}} 已连接</text>
+    </view>
+  </block>
+  <text>\n</text>
+  <view>
+    <text class="p2" style="margin-left:36px">当前温度 </text>
+  </view>
+  <view>
+    <text class="p3" style="margin-left:36px">{{current_temperture}}℃</text>
+  </view>
+  <text>\n</text>
+  <view class="p2">
+    <text style="margin-left:36px">状态</text>
+  </view>
+  <view>
+    <block wx:if="{{ledWarnState == 1}}">
+    <text class="p3" style="margin-left:36px">正在报警</text> 
+    </block>
+    <block wx:else>
+      <text class="p3" style="margin-left:36px">无报警</text> 
+    </block>
+  </view>
+  <text>\n</text>
+  <view class="p2">
+    <text style="margin-left:36px">设定温度</text>
+  </view>
+  <view>
+    <text class="p3" style="margin-left:36px">当前设定温度：{{current_set_temp}}℃</text>
+    <slider style="margin-left:36px" value="25" bindchange="slidertest" min="-40" max="100" show-value/>
+  </view>
+  <text>\n</text>
+
+<!--
+  <button  class="button" bindtap="lanya4">获取所有周边蓝牙设备信息</button>
+   <block wx:for="{{devices}}" wx:key="{{test}}">
+  <button type="primary" class="button" id="{{item.deviceId}}" style='background-color:red' bindtap="connectTO">连接蓝牙设备{{item.name}}</button>
+ </block>
+ -->
+</view>

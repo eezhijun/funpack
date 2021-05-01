@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.silabs.ss.tool.ide.arm.debug.launch">
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.BOARDS" value=""/>
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.DEFAULT_ADAPTER" value=""/>
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.ERASE_METHOD" value="page"/>
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.MCU" value=""/>
+    <booleanAttribute key="com.silabs.ss.framework.debugger.core.RUN_FROM_RESET" value="true"/>
+    <booleanAttribute key="com.silabs.ss.framework.debugger.core.RUN_STARTUP_SCRIPT" value="false"/>
+    <booleanAttribute key="com.silabs.ss.framework.debugger.core.SMART_DOWNLOAD" value="false"/>
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.STARTUP_SCRIPT" value=""/>
+    <stringAttribute key="com.silabs.ss.framework.debugger.core.TIF" value=""/>
+    <stringAttribute key="com.silabs.ss.tool.ide.arm.debug.CORE_CLOCK" value="14.000000"/>
+    <booleanAttribute key="com.silabs.ss.tool.ide.arm.debug.ENABLE_TRACE" value="true"/>
+    <intAttribute key="com.silabs.ss.tool.ide.arm.debug.EXCEPTIONS_TO_CATCH" value="0"/>
+    <booleanAttribute key="com.silabs.ss.tool.ide.arm.debug.SWO_AUTO_SWOCLOCK" value="false"/>
+    <stringAttribute key="com.silabs.ss.tool.ide.arm.debug.SWO_CLOCK" value="875"/>
+    <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
+    <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
+    <booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="true"/>
+    <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN_SYMBOL" value="main"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="C:\Users\azjho\Desktop\BLE\prj_test\workspace_05\soc_thunderboard_brd4184a\GNU ARM v7.2.1 - Debug\soc_thunderboard_brd4184a.axf"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="soc_thunderboard_brd4184a"/>
+    <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt.debug#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:7.2.1.20170904"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/soc_thunderboard_brd4184a"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <stringAttribute key="org.eclipse.dsf.launch.MEMORY_BLOCKS" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;memoryBlockExpressionList context=&quot;reserved-for-future-use&quot;/&gt;&#13;&#10;"/>
+    <stringAttribute key="sysview.enabled" value="false"/>
+    <stringAttribute key="sysview.instance.port" value="64780"/>
+    <stringAttribute key="sysview.jlink.connection" value="usb"/>
+    <stringAttribute key="sysview.launch.mode" value="profileRunDebugSession"/>
+    <stringAttribute key="sysview.project.sourcecode" value="linkSource"/>
+    <stringAttribute key="sysview.rtos.name" value="MicriumOSKernel"/>
+    <stringAttribute key="sysview.rttdetect" value="searchRange"/>
+    <stringAttribute key="sysview.rttdetect.address" value="0x00000000"/>
+    <stringAttribute key="sysview.rttdetect.searchRange" value="0x00000000 0x0000"/>
+    <stringAttribute key="sysview.stopDebugSession" value="stopProfilingSession"/>
+    <stringAttribute key="sysview.target.speed" value="8000"/>
+    <stringAttribute key="sysview.tif" value="swd"/>
+</launchConfiguration>

@@ -1,0 +1,81 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+include:
+- path: ''
+  file_list:
+  - {path: advertise.h}
+  - {path: app.h}
+- path: brd4184a
+  file_list:
+  - {path: board.h, folder: brd4184a}
+package: Bluetooth
+configuration:
+- {name: SL_STACK_SIZE, value: '2752'}
+- {name: SL_HEAP_SIZE, value: '9200'}
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- {name: SL_BOARD_ENABLE_SENSOR_RHT, value: '1'}
+description: |
+  Demonstrates the features of the Thunderboard EFR32BG22 Kit. This can be tested with the Thunderboard mobile app.
+label: soc_thunderboard_brd4184a
+readme:
+- {path: 'D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/app/bluetooth/documentation/example/soc_thunderboard/readme.html'}
+source:
+- {path: advertise.c}
+- {path: app.c}
+- {path: app_properties.c}
+- {path: main.c}
+project_name: soc_thunderboard_brd4184a
+quality: production
+component:
+- {id: iostream_retarget_stdio}
+- instance: [btn0]
+  id: simple_button
+- {id: gatt_service_battery}
+- {id: simple_timer}
+- {id: mpu}
+- {id: gatt_service_rht}
+- instance: [led0]
+  id: simple_led
+- {id: gatt_service_hall}
+- {id: gatt_service_aio}
+- {id: rail_util_pti}
+- {id: sensor_hall}
+- {id: app_log}
+- {id: gatt_service_light}
+- instance: [vcom]
+  id: iostream_usart
+- {id: sensor_imu}
+- instance: [sensor]
+  id: i2cspm
+- {id: printf}
+- {id: gatt_service_imu}
+- {id: component_catalog}
+- {id: ota_dfu}
+- {id: brd4184a}
+- {id: bootloader_interface}
+- {id: app_assert}
+- {id: sensor_light}
+- {id: sensor_rht}
+- {id: power_supply}
+- {id: bt_fp_soc_default}
+other_file:
+- {path: create_bl_files.bat}
+- {path: create_bl_files.sh}
+- {path: readme_img0.png}
+- {path: readme_img1.png}
+- {path: readme_img2.png}
+- {path: readme_img3.png}
+- {path: readme_img4.png}
+- {path: readme_img5.png}
+- {path: readme_img6.png}
+define:
+- {name: SL_SIMPLE_BUTTON_COUNT, value: '1'}
+- {name: SL_SIMPLE_LED_COUNT, value: '1'}
+tag: [prebuilt_demo, 'hardware:board_only']
+category: Bluetooth Examples
+toolchain_settings: []
+config_file: []
+ui_hints:
+  highlight:
+  - {path: readme.html, focus: true}
+  - {path: config/btconf/gatt_configuration_brd4184a.btconf}
+

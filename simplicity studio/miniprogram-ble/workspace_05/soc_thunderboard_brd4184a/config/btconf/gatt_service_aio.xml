@@ -1,0 +1,17 @@
+<gatt>
+  <!--Automation IO-->
+  <service advertise="false" id="automation_io" name="Automation IO" requirement="mandatory" sourceId="org.bluetooth.service.automation_io" type="primary" uuid="1815">
+    <informativeText>Abstract:  The Automation IO service is used to expose the analog inputs/outputs and digital input/outputs of a generic IO module (IOM).  </informativeText>
+    
+   
+    
+    <!--Digital-->
+    <characteristic id="aio_digital_out" name="Digital" sourceId="org.bluetooth.characteristic.digital" uuid="2A56">
+      <informativeText>Summary:  The Digital characteristic is used to expose and change the state of an IO Module's digital signals.  </informativeText>
+      <value length="1" type="user" variable_length="false"/>
+      <properties read="true" read_requirement="optional" write="true" write_requirement="optional"/>
+      
+
+    </characteristic>
+  </service>
+</gatt>

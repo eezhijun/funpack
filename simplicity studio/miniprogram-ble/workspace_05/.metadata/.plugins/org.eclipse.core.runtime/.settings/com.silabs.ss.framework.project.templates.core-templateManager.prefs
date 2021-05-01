@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+knownPackageIds=
+knownParentDescs_com.silabs.ss.framework.project.repos.core-repoManager=gitrepo.https-//github.com/siliconlabs/peripheral_examples.git
+knownParentDescs_com.silabs.ss.platform.sdk.core-protocolRegistry=com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.sdk.exx32\:6.0.0.0_-1631832882\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.sdk.mcu\:6.0.0.0_-1239485265\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.sdk.micrium\:5.10.0._2073159571\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.sdk.platform\:3.0.0.0_-1756644382\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.sdk.stack.bootloader\:1.12.0._-1780946407\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.stack.ble\:3.1.0.0_-466331118\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386.com.silabs.stack.btMesh\:2.0.0.0_891915129
+knownParentDescs_com.silabs.ss.platform.sdk.core-sdkManager=com.silabs.sdk.none\:0.0.0\u0000com.silabs.sdk.stack.super\:3.1.0._1594811386\u0000com.silabs.stack.external.stackless\:1.0.0._1234321
+lastRefreshDate=1609570746048

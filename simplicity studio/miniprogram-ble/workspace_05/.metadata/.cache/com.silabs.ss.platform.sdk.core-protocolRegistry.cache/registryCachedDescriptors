@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ASCII"?>
+<model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="32-bit MCU SDK" description="Silicon Labs 32-bit MCU SDK for EFM32 and EZR32">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/.studio/efm32.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="6.0.0.0_-1631832882"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="core.partCompatibility" value="mcu.arm.efm32.* mcu.arm.ezr32.*"/>
+    <properties key="sdk.subLabel" value="MCU\ 6.0.0.0"/>
+    <properties key="sdk.modulesFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\.studio\modules.xml"/>
+    <properties key="sdk.docsFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\.studio\mcu_doc_content.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.sdk.exx32"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="32-bit MCU SDK" description="Silicon Labs 32-bit MCU SDK for EFM32 and EZR32">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/app/mcu_example/app_mcu.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="6.0.0.0_-1239485265"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="sdk.subLabel" value="MCU SDK\ 6.0.0.0"/>
+    <properties key="sdk.templatesFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\mcu_example\mcu_production_templates.xml"/>
+    <properties key="sdk.demosFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\mcu_example\mcu_demos.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.sdk.mcu"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="Micrium OS Kernel" description="SL-MOS-KRNX-000000-P-P1">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/platform/micrium_os/micrium-krnx.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="5.10.0._2073159571"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="core.partCompatibility" value="mcu.arm.efm32.g..* mcu.arm.efm32.gg.* mcu.arm.efm32.hg.* mcu.arm.efm32.pg.* mcu.arm.efm32.pg12.* mcu.arm.efm32.jg.* mcu.arm.efm32.jg12.* mcu.arm.efm32.lg.* mcu.arm.efm32.wg.* mcu.arm.efr32.*"/>
+    <properties key="sdk.subLabel" value="Micrium\ OS\ Kernel"/>
+    <properties key="installedUnit" value="krnx"/>
+    <properties key="sdk.docsFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\platform\micrium_os\micrium-krnx-docs.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.sdk.micrium"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="Platform" description="Platform">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/app/common/app_common.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="3.0.0.0_-1756644382"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="sdk.subLabel" value="Platform\ 3.0.0.0"/>
+    <properties key="sdk.templatesFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\common\platform_alpha_templates_nongen.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\common\builtin_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\common\platform_production_templates.xml"/>
+    <properties key="sdk.demosFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\common\platform_demos.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.sdk.platform"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="Gecko Bootloader" description="Gecko Bootloader for EFM32 and EFR32 devices">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/platform/bootloader/esf.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="1.12.0._-1780946407"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="protocol.protocolKey" value="BOOTLOADER"/>
+    <properties key="stack.esf.appDirectory" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\platform\bootloader\. D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\platform\bootloader\application"/>
+    <properties key="sdk.docsFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\platform\bootloader\documentation\gecko_bootloader_documentation.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.sdk.stack.bootloader"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="Bluetooth SDK" description="Bluetooth Software Development Kit">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/app/bluetooth/esf.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="3.1.0.0_-466331118"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="core.partCompatibility" value="-.*efr32.bg1v.* -.*efr32.bg14.* .*efr32.[bm]g.*"/>
+    <properties key="sdk.subLabel" value="Bluetooth\ 3.1.0"/>
+    <properties key="sdk.adapterPacks" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\..\..\protocol\bluetooth\bin\gatt"/>
+    <properties key="sdk.templatesFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_production_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_alpha_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_beta_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_test_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_internal_templates.xml"/>
+    <properties key="bleSDK.bgbuildToolchain" value="true"/>
+    <properties key="btGattConfiguratorGroup.btConfGattItemDatabases" value="sig silabs custom"/>
+    <properties key="sdk.docsFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\documentation\slBluetooth_docContent.xml"/>
+    <properties key="core.boardCompatibility" value=".*"/>
+    <properties key="bleSDK.bgbuildLocation" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\..\..\protocol\bluetooth\bin"/>
+    <properties key="btGattConfiguratorGroup.btconfGattItemSourcePath" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\gatt_xml"/>
+    <properties key="sdk.demosFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\bluetooth_demos.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.stack.ble"/>
+  </descriptors>
+  <descriptors name="com.silabs.sdk.stack.super:3.1.0._1594811386" label="Bluetooth Mesh SDK" description="Bluetooth Mesh Software Development Kit">
+    <properties key="core.installationPath" value="file:/D:/SiliconLabs/SimplicityStudio/v5/developer/sdks/gecko_sdk_suite/v3.1/app/bluetooth/btmesh.properties"/>
+    <properties key="coreSdk.contributingSdk" value="com.silabs.sdk.stack.super:3.1.0._1594811386"/>
+    <properties key="core.version" value="2.0.0.0_891915129"/>
+    <properties key="sdk.subPropertyFiles" value=""/>
+    <properties key="sdk.subLabel" value="Bluetooth\ Mesh\ 2.0.0"/>
+    <properties key="sdk.adapterPacks" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\..\..\protocol\bluetooth\bin\gatt D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\script\btmesh"/>
+    <properties key="sdk.templatesFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_production_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_alpha_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_beta_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_test_templates.xml D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_internal_templates.xml"/>
+    <properties key="bleSDK.bgbuildToolchain" value="true"/>
+    <properties key="btGattConfiguratorGroup.btConfGattItemDatabases" value="mesh"/>
+    <properties key="sdk.docsFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\documentation\slBtMesh_docContent.xml"/>
+    <properties key="bleSDK.bgbuildLocation" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\..\..\protocol\bluetooth\bin"/>
+    <properties key="btGattConfiguratorGroup.btconfGattItemSourcePath" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\gatt_xml"/>
+    <properties key="sdk.demosFile" value="D:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.1\app\bluetooth\btmesh_demos.xml"/>
+    <properties key="core.detected" value="true"/>
+    <properties key="registry.providingDetector" value="com.silabs.ss.platform.internal.api.sdk.core.protocol.SDKProtocolDetector"/>
+    <properties key="core.builtin" value="true"/>
+    <properties key="CACHED_ID_STRING" value="com.silabs.stack.btMesh"/>
+  </descriptors>
+</model:MDescriptors>

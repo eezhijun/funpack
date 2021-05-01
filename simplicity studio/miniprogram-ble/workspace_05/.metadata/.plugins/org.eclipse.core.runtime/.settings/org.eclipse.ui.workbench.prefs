@@ -1,0 +1,11 @@
+//org.eclipse.ui.commands/state/com.silabs.ss.framework.debugger.ui.command.reset/org.eclipse.ui.commands.radioState=default
+//org.eclipse.ui.commands/state/org.eclipse.cdt.debug.edc.ui.snapshotCreation/org.eclipse.ui.commands.radioState=manual
+//org.eclipse.ui.commands/state/org.eclipse.ui.navigator.resources.nested.changeProjectPresentation/org.eclipse.ui.commands.radioState=false
+ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.cdt.ui.presentation\tTorg.eclipse.cdt.ui.CEditor.presentation
+ColorsAndFontsPreferencePage.selectedElement=Forg.eclipse.cdt.ui.editors.textfont
+UIActivities.org.eclipse.cdt.debug.edc.ui.edcActivity=true
+UIActivities.org.eclipse.debug.ui.contextualMenuProfile=true
+eclipse.preferences.version=1
+org.eclipse.cdt.internal.ui.compare.AsmMergeViewer=1|Fira Code Retina|14.25|0|WINDOWS|1|-19|0|0|0|450|0|0|0|0|3|2|1|49|Fira Code Retina;
+org.eclipse.cdt.internal.ui.compare.CMergeViewer=1|Fira Code Retina|14.25|0|WINDOWS|1|-19|0|0|0|450|0|0|0|0|3|2|1|49|Fira Code Retina;
+org.eclipse.cdt.ui.editors.textfont=1|Fira Code Retina|14.25|0|WINDOWS|1|-19|0|0|0|450|0|0|0|0|3|2|1|49|Fira Code Retina;

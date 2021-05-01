@@ -1,0 +1,6 @@
+18:28:53 **** Incremental Build of configuration GNU ARM v7.2.1 - Debug for project soc_thunderboard_brd4184a ****
+make -j16 all 
+make: Nothing to be done for `all'.
+
+18:28:59 Build Finished. 0 errors, 0 warnings. (took 6s.147ms)
+

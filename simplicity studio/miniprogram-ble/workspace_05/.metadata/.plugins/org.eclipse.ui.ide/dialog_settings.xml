@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="ilg.gnumcueclipse.debug.gdbjtag.jlink.feature:4.4.2.202010290820"/>
+		<item value="org.eclipse.draw2d:3.10.100.201606061308"/>
+		<item value="org.eclipse.emf.common:2.17.0.v20190920-0401"/>
+		<item value="org.eclipse.emf.ecore:2.20.0.v20190920-0401"/>
+		<item value="org.eclipse.help:2.3.0.v20191210-0610"/>
+		<item value="org.eclipse.platform:4.14.0.v20191210-0610"/>
+		<item value="org.eclipse.rcp:4.14.0.v20191210-0610"/>
+		<item value="org.eclipse.zest:1.7.0.201606061308"/>
+	</list>
+</section>
