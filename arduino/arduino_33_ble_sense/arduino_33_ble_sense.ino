@@ -1,4 +1,3 @@
-
 /****************************************
  * Getting started with the Arduino NANO 33 BLE Sense link：https://www.arduino.cc/en/Guide/NANO33BLESense
  *  nRF52840：https://github.com/arduino/ArduinoCore-nRF528x-mbedos
@@ -14,33 +13,35 @@
 #include <Arduino_LPS22HB.h>
 #include <Arduino_APDS9960.h>
 #include <PDM.h>
+#include <arduinoFFT.h>
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h>
 
-// buffer to read samples into, each sample is 16-bits
-short sampleBuffer[256];
-
-// number of samples read
-volatile int samplesRead;
-
 #define LEDR        (22u)
 #define LEDG        (23u)
 #define LEDB        (24u)
-#define D8              (8u)
-
-#define TFT_CS        (8u)
-#define TFT_RST      (10u) // Or set to -1 and connect to Arduino RESET pin
-#define TFT_DC        (9u)
 
 #define TFT_CS        (8u)// PyBadge/PyGamer display control pins: chip select
 #define TFT_RST      (10u)  // Display reset
 #define TFT_DC        (9u) // Display data/command select
 #define TFT_BACKLIGHT (7u) // Display backlight pin
 
+#define SAMPLES 256
+#define SAMPLING_FREQUENCY 16000
+
+// buffer to read samples into, each sample is 16-bits
+short sampleBuffer[SAMPLES];
+// number of samples read
+volatile int samplesRead;
+// FFT real and imaginary vectors
+double vReal[SAMPLES];
+double vImag[SAMPLES];
+// final result from FFT
+double ftsum = 0.0;
 
 Adafruit_ST7789 tft = Adafruit_ST7789(&SPI, TFT_CS, TFT_DC, TFT_RST);
-float p = 3.1415926;
+arduinoFFT FFT = arduinoFFT();
 
 void setup() {
   // put your setup code here, to run once:
@@ -49,21 +50,14 @@ void setup() {
   Serial.begin(9600);
   while (!Serial);
 
+/* TFT屏幕初始化 */
   tft.init(135, 240); 
   tft.setRotation(3);
 //  pinMode(TFT_BACKLIGHT, OUTPUT);
 //  digitalWrite(TFT_BACKLIGHT, HIGH); // Backlight on
   tft.fillScreen(ST77XX_BLACK);
-  
-//  tft.setTextWrap(false);
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setCursor(0, 0);
-  tft.setTextColor(ST77XX_RED);
   tft.setTextSize(2);
-//  tft.println("Hello World!sssssssssssssssssssssss");
-//  tft.setTextColor(ST77XX_GREEN);
-//  tft.print(p, 6);
-  
+    
 /* RGB 初始化 */
 //  pinMode(RED, OUTPUT);
   pinMode(LEDB, OUTPUT);
@@ -89,7 +83,7 @@ void setup() {
 
 /* 音频传感器初始化 */
     PDM.onReceive(onPDMdata);
-    if (!PDM.begin(1, 16000)) {
+    if (!PDM.begin(1, SAMPLING_FREQUENCY)) {
     Serial.println(F("Failed to start PDM!"));
     while (1);
   }
@@ -101,80 +95,102 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+  delay(1000);    // wait a second
+  
+  tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); 
+  tft.setCursor(0, 0);
+  tft.print("WERTHER STATION");
+  tft.drawLine(0, 16, tft.width() - 1, 16, ST77XX_YELLOW);
+  
   float temperature = HTS.readTemperature();  
-  Serial.print(F("Temperature = "));
+  Serial.print(F("TEMPERATURE:"));
   Serial.print(temperature, 1);
   Serial.println(F(" °C"));
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setCursor(0, 0);
-  tft.print("Temperature = ");
+  
+  tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+  tft.setCursor(0, 20);
+  tft.print("TEMPERATURE:");
   tft.print(temperature, 1);
-//  tft.println(" °C");
+  tft.drawCircle(200, 20, 3, ST77XX_RED);     // print degree symbol ( ° )
+  tft.setCursor(208, 20);
+  tft.print("C");
+  tft.drawLine(0, 36, tft.width() - 1, 36, ST77XX_YELLOW);
 
   float humidity    = HTS.readHumidity();
-  Serial.print(F("Humidity    = "));
+  Serial.print(F("HUMIDITY:"));
   Serial.print(humidity, 1);
   Serial.println(F(" %"));
-
+  
+  tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+  tft.setCursor(0, 40);
+  tft.print("HUMIDITY:");
+  tft.print(humidity, 1);
+  tft.setCursor(160, 40);
+  tft.print("%");
+  tft.drawLine(0, 56, tft.width() - 1, 56, ST77XX_YELLOW);
+  
   float pressure = BARO.readPressure();
-  Serial.print(F("Pressure = "));
+  Serial.print(F("PRESSURE:"));
   Serial.print(pressure, 1);
   Serial.println(F(" kPa"));
-
-  while (! APDS.colorAvailable()) {
-    delay(5);
-  }
   
+  tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+  tft.setCursor(0, 60);
+  tft.print("PRESSURE:");
+  tft.print(pressure, 1);
+  tft.setCursor(170, 60);
+  tft.print("kPa");
+  tft.drawLine(0, 76, tft.width() - 1, 76, ST77XX_YELLOW);
+  
+  while (! APDS.colorAvailable()) {
+    delay(1);
+  }
   int r, g, b, a;
   APDS.readColor(r, g, b, a);
-  Serial.print("r = ");
+  Serial.print("r:");
   Serial.println(r);
-  Serial.print("g = ");
+  Serial.print("g:");
   Serial.println(g);
-  Serial.print("b = ");
+  Serial.print("b:");
   Serial.println(b);
-  Serial.print("a = ");
+  Serial.print("a:");
   Serial.println(a);
-
   if(a > 20)
   {
-    Serial.println(F("day"));
+    
+    Serial.println(F("DAY"));
+    tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+    tft.setCursor(0, 80);
+    tft.print("AMBIENT:DAY  ");
   }
   else
   {
-    Serial.println(F("night"));
+    Serial.println(F("NIGHT"));
+    tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+    tft.setCursor(0, 80);
+    tft.print("AMBIENT:NIGHT");
   }
+  tft.drawLine(0, 96, tft.width() - 1, 96, ST77XX_YELLOW);
 
-    // wait for samples to be read
-//  if (samplesRead) {
-//
-//    // print samples to the serial monitor or plotter
-//    for (int i = 0; i < samplesRead; i++) {
-//      Serial.println(sampleBuffer[i]);
-//    }
-//
-//    // clear the read count
-//    samplesRead = 0;
-//  }
+  while (!samplesRead);
+  uint32_t sample_max = 0;
+  for (int i = 0; i < samplesRead; i++) {
+    if(sampleBuffer[i] < 0)
+      sampleBuffer[i] = -sampleBuffer[i];
+    if(sampleBuffer[i] > sample_max) 
+      sample_max= sampleBuffer[i];
+  }
+  uint32_t sample = 24*log10(sample_max*5); 
+  samplesRead = 0;
 
-//    uint32_t sample_max = 0;
-//    for (int i = 0; i < samplesRead; i++) 
-//    {
-//      if(sampleBuffer[i] < 0)
-//      {
-//            sampleBuffer[i] = -sampleBuffer[i];
-//      }
-//      if(sampleBuffer[i] > sample_max)
-//      {
-//           sample_max= sampleBuffer[i]; 
-//      } 
-//    }
-//    uint32_t sample = 24*log10(sample_max*5); //转换分贝
-//    samplesRead = 0;
-//    Serial.print(sample);
-//    Serial.println(F("dB"));
-  
-   delay(100);
+  Serial.println(sample);
+  tft.setTextColor(ST77XX_RED, ST77XX_BLACK);  // set text color to red and black background
+  tft.setCursor(0, 100);
+  tft.print("NOISE:");
+  tft.print(sample, 1);
+  tft.setCursor(110, 100);
+  tft.print("dB");
+  tft.drawLine(0, 116, tft.width() - 1, 116, ST77XX_YELLOW);
 }
 
 void onPDMdata() {
