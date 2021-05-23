@@ -24,7 +24,7 @@
 #define LEDR        (22u)
 #define LEDG        (23u)
 #define LEDB        (24u)
-/* TFT的SPI引脚 */
+/* TFT引脚 */
 #define TFT_CS        (8u)// PyBadge/PyGamer display control pins: chip select
 #define TFT_RST      (10u)  // Display reset
 #define TFT_DC        (9u) // Display data/command select
@@ -79,7 +79,7 @@ void setup() {
 
 /* 串口初始化 */
   Serial.begin(9600);
-  while (!Serial);
+  // while (!Serial);
 
 /* TFT屏幕初始化 */
   tft.init(135, 240); 
@@ -165,72 +165,10 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
   
-  display();
+  display_process();
  
-    // listen for BLE peripherals to connect:
-  BLEDevice central = BLE.central();
-
-  if(central)
-  {
-    Serial.print("Connected to central MAC: ");
-    Serial.println(central.address()); // Central's BT address:
-    digitalWrite(LEDB, LOW); // Turn on the LED to indicate the connection
-    while (central.connected()) 
-    {
-      long currentMillis = millis();
-      // After UPDATE_FREQUENCY ms have passed, check temperature & humidity
-      if (currentMillis - previousMillis >= UPDATE_FREQUENCY) 
-      {
-        previousMillis = currentMillis;
-        if (temperature != previousTemperature) 
-        { // If reading has changed
-          Serial.print("Temperature: ");
-          Serial.println(temperature);
-          tempCharacteristic.writeValue((int16_t)(temperature * 100)); // Update characteristic
-          previousTemperature = temperature;          // Save value
-        }
-        if (humidity != previousHumidity) 
-        { // If reading has changed
-            Serial.print("Humidity: ");
-            Serial.println(humidity);
-            humidCharacteristic.writeValue((uint16_t)(humidity * 100));
-            previousHumidity = humidity;
-        }
-        if (pressure != previousPressure) 
-        { // If reading has changed
-          Serial.print("Pressure: ");
-          Serial.println(pressure);
-          pressureCharacteristic.writeValue((uint16_t)(pressure * 100));
-          previousPressure = pressure;
-        }     
-        if(a > 20)
-        {
-          Serial.print("DAY a: ");
-          Serial.println(a);
-          colorCharacteristic.writeValue((uint8_t)true);
-        }
-        else
-        {
-          Serial.print("NIGHT a: ");
-          Serial.println(a);
-          colorCharacteristic.writeValue((uint8_t)false);
-        }
-        if(noise != previousNoise) 
-        { // If reading has changed
-          Serial.print("Noise: ");
-          Serial.println(noise);
-          soundCharacteristic.writeValue((uint16_t)(noise));
-          previousNoise = noise;
-        } 
-        display();
-      }
-    }
-    digitalWrite(LEDB, HIGH); // When the central disconnects, turn off the LED
-    Serial.print("Disconnected from central MAC: ");
-    Serial.println(central.address());
-   }
+  ble_process();
 
   delay(1000);    // wait a second
 }
@@ -247,7 +185,7 @@ void onPDMdata()
   samplesRead = bytesRead / 2;
 }
 
-void display(void)
+void display_process(void)
 {
   tft.setTextColor(ST77XX_WHITE, ST77XX_BLACK); 
   tft.setCursor(0, 0);
@@ -299,13 +237,13 @@ void display(void)
     delay(1);
   }
   APDS.readColor(r, g, b, a);
-  Serial.print("r:");
+  Serial.print("R:");
   Serial.println(r);
-  Serial.print("g:");
+  Serial.print("G:");
   Serial.println(g);
-  Serial.print("b:");
+  Serial.print("B:");
   Serial.println(b);
-  Serial.print("a:");
+  Serial.print("A:");
   Serial.println(a);
   if(a > 20)
   {
@@ -358,7 +296,72 @@ void display(void)
   tft.setCursor(110, 100);
   tft.print("dB");
   tft.drawLine(0, 116, tft.width() - 1, 116, ST77XX_YELLOW);
+}
 
+void ble_process(void)
+{
+  // listen for BLE peripherals to connect:
+  BLEDevice central = BLE.central();
+
+  if(central)
+  {
+    Serial.print("Connected to central MAC: ");
+    Serial.println(central.address()); // Central's BT address:
+    digitalWrite(LEDB, LOW); // Turn on the LED to indicate the connection
+    while (central.connected()) 
+    {
+      long currentMillis = millis();
+      // After UPDATE_FREQUENCY ms have passed, check temperature & humidity
+      if (currentMillis - previousMillis >= UPDATE_FREQUENCY) 
+      {
+        previousMillis = currentMillis;
+        if (temperature != previousTemperature) 
+        { // If reading has changed
+          Serial.print("Temperature: ");
+          Serial.println(temperature);
+          tempCharacteristic.writeValue((int16_t)(temperature * 100)); // Update characteristic
+          previousTemperature = temperature;          // Save value
+        }
+        if (humidity != previousHumidity) 
+        { // If reading has changed
+            Serial.print("Humidity: ");
+            Serial.println(humidity);
+            humidCharacteristic.writeValue((uint16_t)(humidity * 100));
+            previousHumidity = humidity;
+        }
+        if (pressure != previousPressure) 
+        { // If reading has changed
+          Serial.print("Pressure: ");
+          Serial.println(pressure);
+          pressureCharacteristic.writeValue((uint16_t)(pressure * 100));
+          previousPressure = pressure;
+        }     
+        if(a > 20)
+        {
+          Serial.print("Day a: ");
+          Serial.println(a);
+          colorCharacteristic.writeValue((uint8_t)true);
+        }
+        else
+        {
+          Serial.print("Night a: ");
+          Serial.println(a);
+          colorCharacteristic.writeValue((uint8_t)false);
+        }
+        if(noise != previousNoise) 
+        { // If reading has changed
+          Serial.print("Noise: ");
+          Serial.println(noise);
+          soundCharacteristic.writeValue((uint16_t)(noise));
+          previousNoise = noise;
+        } 
+        display_process();
+      }
+    }
+    digitalWrite(LEDB, HIGH); // When the central disconnects, turn off the LED
+    Serial.print("Disconnected from central MAC: ");
+    Serial.println(central.address());
+   }
 }
 
 
