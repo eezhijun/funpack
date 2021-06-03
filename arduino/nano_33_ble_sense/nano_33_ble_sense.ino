@@ -24,11 +24,13 @@
 #define LEDR        (22u)
 #define LEDG        (23u)
 #define LEDB        (24u)
+
 /* TFT引脚 */
 #define TFT_CS        (8u)// PyBadge/PyGamer display control pins: chip select
 #define TFT_RST      (10u)  // Display reset
 #define TFT_DC        (9u) // Display data/command select
 #define TFT_BACKLIGHT (7u) // Display backlight pin
+
 /* 噪声采样频率 */
 #define SAMPLES 256
 #define SAMPLING_FREQUENCY 16000
